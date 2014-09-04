@@ -8,7 +8,6 @@ Why?
 ----
 
 GenomeBaser:
-
     1) Encourages best practice (uses rsync -> only update what's needed)
     2) Despises filenames that aren't easily understandable (symlinks to 
        RefSeq based filename to  Genus_species_strain.gbk)
@@ -18,6 +17,6 @@ GenomeBaser:
        complete plasmind into separate buckets)
 
 
-Example usage:
+Example usage::
 
     python genomebaser.py 'Pseudomonas aeruginosa' ~/dbs 
