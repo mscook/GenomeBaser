@@ -3,6 +3,8 @@ GenomeBaser
 
 A tool to manage complete (bacterial) genomes from the NCBI.
 
+Most current release is 0.1.0_.
+
 
 Why?
 ----
@@ -17,6 +19,29 @@ GenomeBaser:
        complete plasmind into separate buckets)
 
 
-Example usage::
+Installation
+------------
+
+Something like::
+
+    $ pip install GenomeBaser
+
+Alternatively::
+
+    $ wget https://github.com/mscook/GenomeBaser/archive/v0.1.0.tar.gz
+    $ tar -zxvf v0.1.0.tar.gz
+    $ cd v0.1.0
+    $ # May need sudo/root, BUT...
+    $ python setup.py install
+
+
+Usage
+-----
+
+Something like::
 
     python genomebaser.py 'Pseudomonas aeruginosa' ~/dbs 
+
+
+
+.. _0.1.0: https://github.com/mscook/GenomeBaser/archive/v0.1.0.tar.gz
