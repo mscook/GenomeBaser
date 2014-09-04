@@ -4,6 +4,13 @@
 Genomebaser is a tool to manage complete genomes from the NCBI
 """
 
+__title__         = 'GenomeBaser'
+__version__       = '0.1.0'
+__description__   = "GenomeBaser manages complete (bacterial) genomes from NCBI"
+__author__        = 'Mitchell Stanton-Cook'
+__author_email__  = 'm.stantoncook@gmail.com'
+__url__           = 'http://github.com/mscook/GenomeBaser'
+__license__       = 'ECL 2.0'
 
 import os
 from Bio import SeqIO
@@ -15,8 +22,8 @@ import subprocess
 
 def check_deps():
     """
-    Check if 3rd party dependencies (non-python) exist 
-    
+    Check if 3rd party dependencies (non-python) exist
+
     Requires:
         * rsysnc
         * prokka-genbank_to_fasta_db
@@ -25,7 +32,7 @@ def check_deps():
     """
     reqs = ["rsync", "prokka-genbank_to_fasta_db", "cd-hit", "makeblastdb"]
     for e in reqs:
-        output = subprocess.Popen(["which", e], 
+        output = subprocess.Popen(["which", e],
                  stdout=subprocess.PIPE).communicate()[0]
         if output.split("/")[-1].strip() != e:
             print "Misisng %s. Please install. Exiting." % (e)
@@ -35,16 +42,16 @@ def check_deps():
 def fetch_genomes(target_genus_species, db_base=None):
     """
     Use rsync to manage periodic updates
-   
+
     Examples:
 
     >>> fetch_genomes("Escherichia coli")
     >>>
     >>> fetch_genomes("Klebsiella pneumoniae", "/home/me/dbs/")
 
-    :param target_genus_species: the genus species as a string 
+    :param target_genus_species: the genus species as a string
                                  (space delimited)
-    
+
     :returns: the database location
     """
     working_dir = os.getcwd()
@@ -70,9 +77,9 @@ def genbank_to_fasta(db_loc):
 
     >>> genbank_to_fasta("/home/uqmstan1/Beatson_shared/dbs/Klebsiella_pneumoniae"
 
-    :param db_loc: the fullpath as a sting to the database location (genus 
+    :param db_loc: the fullpath as a sting to the database location (genus
                    species inclusive)
-    
+
     :returns: a list of the output fasta files
     """
     fasta_files = []
@@ -83,7 +90,7 @@ def genbank_to_fasta(db_loc):
     for inf in infs:
         cmd = "grep -v 'CONTIG      join' "+inf+" > "+tmp_file
         os.system(cmd)
-        os.rename(tmp_file, inf)        
+        os.rename(tmp_file, inf)
         for seq_record in SeqIO.parse(inf, "genbank"):
             out_fa = re.sub(r'\W+', ' ', seq_record.description).replace(' ', '_')
             if out_fa.endswith('_'):
@@ -91,9 +98,9 @@ def genbank_to_fasta(db_loc):
             else:
                 out_fa = out_fa+".fna"
             SeqIO.write(seq_record, out_fa, "fasta")
-            fasta_files.append(out_fa) 
-            dest = out_fa.replace(".fna", ".gbk") 
-            if not os.path.lexists(dest): 
+            fasta_files.append(out_fa)
+            dest = out_fa.replace(".fna", ".gbk")
+            if not os.path.lexists(dest):
                 os.symlink(inf, dest)
     if os.path.exists(tmp_file):
         os.remove(tmp_file)
@@ -105,15 +112,15 @@ def partition_genomes(db_loc, fasta_files):
     """
     Separate complete genomes from plasmids
 
-    ..warning:: this partitions on the complete_sequence (plasmid) vs 
-                complete_genome (genome) in filename assumption (in 
+    ..warning:: this partitions on the complete_sequence (plasmid) vs
+                complete_genome (genome) in filename assumption (in
                 DEFINITION) line
 
-    :param db_loc: the fullpath as a sting to the database location (genus 
+    :param db_loc: the fullpath as a sting to the database location (genus
                    species inclusive)
-    
+
     :param fasta_files: a list of fasta files
-    
+
     :returns: a list of DEFINITION format named GenBank files
     """
     plasmid, genome = [], []
@@ -129,14 +136,14 @@ def partition_genomes(db_loc, fasta_files):
         else:
             print "Could not classify %s" % (e)
             print "Continuing..."
-    if not os.path.exists("plasmid"): 
+    if not os.path.exists("plasmid"):
         os.mkdir("plasmid")
     os.chdir("plasmid")
     for e in plasmid:
         if not os.path.lexists(e):
             os.symlink("../"+e, e)
     os.chdir("../")
-    if not os.path.exists("genome"): 
+    if not os.path.exists("genome"):
         os.mkdir("genome")
     os.chdir("genome")
     for e in genome:
@@ -151,18 +158,18 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
     """
     Make a prokka database of the complete genomes
 
-    :param db_loc: the fullpath as a sting to the database location (genus 
+    :param db_loc: the fullpath as a sting to the database location (genus
                    species inclusive)
 
     :param genbank_files: a list of GenBank files
 
-    :param target_genus_species: the genus species as a string 
+    :param target_genus_species: the genus species as a string
                                  (space delimited)
     """
     working_dir = os.getcwd()
     os.chdir(db_loc)
     target = target_genus_species.split(" ")[0]
-    if not os.path.exists("prokka"): 
+    if not os.path.exists("prokka"):
         os.mkdir("prokka")
     prokka_cmd = ("prokka-genbank_to_fasta_db %s --idtag=locus_tag "
                   "> prokka/%s.faa") % (' '.join(genbank_files), target)
@@ -170,7 +177,7 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
     os.chdir("prokka")
     cd_hit_cmd = ("cd-hit -i %s.faa -o %s -T 0 -M 0 -g 1 -s 0.8 -c 0.9") % (target, target)
     os.system(cd_hit_cmd)
-    blast_cmd = "makeblastdb -dbtype prot -in %s" % (target) 
+    blast_cmd = "makeblastdb -dbtype prot -in %s" % (target)
     os.system(blast_cmd)
     os.chdir("../")
     os.chdir(working_dir)
@@ -178,14 +185,14 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
 
 def main():
     """
-    Run GenomeBaser 
+    Run GenomeBaser
     """
     check_deps()
     if len(sys.argv) != 3:
         print "Usage:"
         print "python genomebaser.py 'Genus species' /db/base/location/"
         print "python genomebaser.py 'Klebsiella pneumoniae' /home/uqmstan1/Beatson_shared/dbs/"
-        exit()    
+        exit()
     loc = fetch_genomes(sys.argv[1], sys.argv[2])
     fas = genbank_to_fasta(loc)
     genbanks = partition_genomes(loc, fas)
