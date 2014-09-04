@@ -1,0 +1,7 @@
+coverage
+mock
+tox
+sphinx
+bumpversion
+wheel
+twine
