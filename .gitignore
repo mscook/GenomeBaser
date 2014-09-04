@@ -1,0 +1,18 @@
+## generic files to ignore
+*.lock
+*.DS_Store
+*.swp
+## python specific
+*.pyc
+*.pyo
+sandbox/*
+## sphinx doc specific
+_build
+_static
+_templates
+## package building stuff
+GenomeBaser.egg-info/
+build/
+dist/
+## Don't store the coverage stuff in the REPO
+tests/.coverage
