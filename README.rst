@@ -9,6 +9,9 @@ GenomeBaser
   :target: https://drone.io/github.com/mscook/GenomeBaser
      :alt: Build status (Drone.io)
 
+.. image:: https://readthedocs.org/projects/genomebaser/badge/?version=latest
+    :target: https://readthedocs.org/projects/genomebaser/?badge=latest
+       :alt: Documentation Status
 |
 
 A tool to manage complete (bacterial) genomes from the NCBI.
