@@ -203,7 +203,7 @@ def main(check_deps, genus, species, out_database_location):
 
         $ # (wait a few months)...
 
-        $ GenomeBaser.py Klebsiella pneumoniae ~/dbs
+        $ GenomeBaser Klebsiella pneumoniae ~/dbs
 
     By Mitchell Stanton-Cook (m.stantoncook@gmail.com)
 

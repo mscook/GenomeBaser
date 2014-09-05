@@ -51,7 +51,7 @@ Something like::
 
               $ # (wait a few months)...
 
-              $ GenomeBaser.py Klebsiella pneumoniae ~/dbs
+              $ GenomeBaser Klebsiella pneumoniae ~/dbs
 
         By Mitchell Stanton-Cook (m.stantoncook@gmail.com)
 
