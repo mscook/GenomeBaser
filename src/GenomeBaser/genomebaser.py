@@ -13,14 +13,16 @@ __url__           = 'http://github.com/mscook/GenomeBaser'
 __license__       = 'ECL 2.0'
 
 import os
-from Bio import SeqIO
 import re
 import glob
 import sys
 import subprocess
 
+from Bio import SeqIO
+import click
 
-def check_deps():
+
+def check_for_deps():
     """
     Check if 3rd party dependencies (non-python) exist
 
@@ -183,20 +185,32 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
     os.chdir(working_dir)
 
 
-def main():
+@click.command()
+@click.option('--check_deps/--no-check_deps', default=True, help='Check that non-python dependencies exist')
+@click.argument("genus")
+@click.argument("species")
+@click.argument('out_database_location', type=click.Path(exists=True))
+def main(check_deps, genus, species, out_database_location):
     """
-    Run GenomeBaser
+    GenomeBaser is tool to manage complete (bacterial) genomes from the NCBI.
+
+    Example usage:
+
+        $ GenomeBaser.py Klebsiella pneumoniae ~/dbs
+
+    By Mitchell Stanton-Cook (m.stantoncook@gmail.com)
+
+    More info at: https://github.com/mscook/GenomeBaser
     """
-    check_deps()
-    if len(sys.argv) != 3:
-        print "Usage:"
-        print "python genomebaser.py 'Genus species' /db/base/location/"
-        print "python genomebaser.py 'Klebsiella pneumoniae' /home/uqmstan1/Beatson_shared/dbs/"
-        exit()
-    loc = fetch_genomes(sys.argv[1], sys.argv[2])
+    if check_deps:
+        print "Checking for 3rd party dependencies"
+        check_for_deps()
+    genus = genus[0].upper()+genus[1:]
+    gs = genus+" "+species
+    loc = fetch_genomes(gs, out_database_location)
     fas = genbank_to_fasta(loc)
     genbanks = partition_genomes(loc, fas)
-    make_prokka(loc, genbanks, sys.argv[1])
+    make_prokka(loc, genbanks, gs)
 
 
 if __name__ == '__main__':
