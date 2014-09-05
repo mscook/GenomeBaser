@@ -4,13 +4,13 @@
 Genomebaser is a tool to manage complete genomes from the NCBI
 """
 
-__title__         = 'GenomeBaser'
-__version__       = '0.1.0'
-__description__   = "GenomeBaser manages complete (bacterial) genomes from NCBI"
-__author__        = 'Mitchell Stanton-Cook'
-__author_email__  = 'm.stantoncook@gmail.com'
-__url__           = 'http://github.com/mscook/GenomeBaser'
-__license__       = 'ECL 2.0'
+__title__ = 'GenomeBaser'
+__version__ = '0.1.0'
+__description__ = "GenomeBaser manages complete (bacterial) genomes from NCBI"
+__author__ = 'Mitchell Stanton-Cook'
+__author_email__ = 'm.stantoncook@gmail.com'
+__url__ = 'http://github.com/mscook/GenomeBaser'
+__license__ = 'ECL 2.0'
 
 import os
 import re
@@ -35,7 +35,7 @@ def check_for_deps():
     reqs = ["rsync", "prokka-genbank_to_fasta_db", "cd-hit", "makeblastdb"]
     for e in reqs:
         output = subprocess.Popen(["which", e],
-                 stdout=subprocess.PIPE).communicate()[0]
+                                  stdout=subprocess.PIPE).communicate()[0]
         if output.split("/")[-1].strip() != e:
             print "Misisng %s. Please install. Exiting." % (e)
             sys.exit()
@@ -77,7 +77,7 @@ def genbank_to_fasta(db_loc):
 
     Examples:
 
-    >>> genbank_to_fasta("/home/uqmstan1/Beatson_shared/dbs/Klebsiella_pneumoniae"
+    >>> genbank_to_fasta("/home/mscook/dbs/Klebsiella_pneumoniae"
 
     :param db_loc: the fullpath as a sting to the database location (genus
                    species inclusive)
@@ -94,7 +94,8 @@ def genbank_to_fasta(db_loc):
         os.system(cmd)
         os.rename(tmp_file, inf)
         for seq_record in SeqIO.parse(inf, "genbank"):
-            out_fa = re.sub(r'\W+', ' ', seq_record.description).replace(' ', '_')
+            out_fa = re.sub(r'\W+', ' ', seq_record.description
+                            ).replace(' ', '_')
             if out_fa.endswith('_'):
                 out_fa = out_fa[:-1]+".fna"
             else:
@@ -177,7 +178,8 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
                   "> prokka/%s.faa") % (' '.join(genbank_files), target)
     os.system(prokka_cmd.replace(".fna", ".gbk"))
     os.chdir("prokka")
-    cd_hit_cmd = ("cd-hit -i %s.faa -o %s -T 0 -M 0 -g 1 -s 0.8 -c 0.9") % (target, target)
+    cd_hit_cmd = ("cd-hit -i %s.faa -o %s -T 0 "
+                  "-M 0 -g 1 -s 0.8 -c 0.9") % (target, target)
     os.system(cd_hit_cmd)
     blast_cmd = "makeblastdb -dbtype prot -in %s" % (target)
     os.system(blast_cmd)
@@ -186,7 +188,8 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
 
 
 @click.command()
-@click.option('--check_deps/--no-check_deps', default=True, help='Check that non-python dependencies exist')
+@click.option('--check_deps/--no-check_deps', default=True,
+              help='Check that non-python dependencies exist')
 @click.argument("genus")
 @click.argument("species")
 @click.argument('out_database_location', type=click.Path(exists=True))
@@ -198,9 +201,13 @@ def main(check_deps, genus, species, out_database_location):
 
         $ GenomeBaser.py Klebsiella pneumoniae ~/dbs
 
+        $ # (wait a few months)...
+
+        $ GenomeBaser.py Klebsiella pneumoniae ~/dbs
+
     By Mitchell Stanton-Cook (m.stantoncook@gmail.com)
 
-    More info at: https://github.com/mscook/GenomeBaser
+    **More info at:** https://github.com/mscook/GenomeBaser
     """
     if check_deps:
         print "Checking for 3rd party dependencies"
