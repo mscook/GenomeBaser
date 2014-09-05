@@ -3,7 +3,20 @@ GenomeBaser
 
 A tool to manage complete (bacterial) genomes from the NCBI.
 
-Most current release is 0.1.2_.
+|
+
+.. image:: https://landscape.io/github/mscook/GenomeBaser/master/landscape.png
+   :target: https://landscape.io/github/mscook/GenomeBaser/master
+      :alt: Code Health
+
+|
+
+.. image:: http://gitshields.com/v2/drone/github.com/mscook/GenomeBaser/brightgreen-red.png
+  :target: https://drone.io/github.com/mscook/GenomeBaser
+     :alt: Build status (Drone.io)
+
+
+Most current release is 0.1.2_ (download).
 
 
 Why?
