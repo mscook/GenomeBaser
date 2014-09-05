@@ -3,7 +3,7 @@ GenomeBaser
 
 A tool to manage complete (bacterial) genomes from the NCBI.
 
-Most current release is 0.1.0_.
+Most current release is 0.1.1_.
 
 
 Why?
@@ -28,9 +28,9 @@ Something like::
 
 Alternatively::
 
-    $ wget https://github.com/mscook/GenomeBaser/archive/v0.1.0.tar.gz
-    $ tar -zxvf v0.1.0.tar.gz
-    $ cd v0.1.0
+    $ wget https://github.com/mscook/GenomeBaser/archive/v0.1.1.tar.gz
+    $ tar -zxvf v0.1.1.tar.gz
+    $ cd v0.1.1
     $ # May need sudo/root, BUT...
     $ python setup.py install
 
@@ -44,4 +44,4 @@ Something like::
 
 
 
-.. _0.1.0: https://github.com/mscook/GenomeBaser/archive/v0.1.0.tar.gz
+.. _0.1.1: https://github.com/mscook/GenomeBaser/archive/v0.1.1.tar.gz

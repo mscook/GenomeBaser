@@ -1,4 +1,4 @@
-#VERSION=0.1.0
+#VERSION=0.1.1
 
 # Remove any existing install in venv...
 pip uninstall GenomeBaser
