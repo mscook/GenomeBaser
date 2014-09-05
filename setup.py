@@ -15,7 +15,7 @@ except ImportError:
 from setuptools import setup
 
 __title__         = 'GenomeBaser'
-__version__       = '0.1.1'
+__version__       = '0.1.2'
 __description__   = "GenomeBaser manages complete (bacterial) genomes from NCBI"
 __author__        = 'Mitchell Stanton-Cook'
 __author_email__  = 'm.stantoncook@gmail.com'
