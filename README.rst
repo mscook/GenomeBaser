@@ -5,11 +5,11 @@ GenomeBaser
    :target: https://landscape.io/github/mscook/GenomeBaser/master
       :alt: Code Health
 
-|
-
 .. image:: http://gitshields.com/v2/drone/github.com/mscook/GenomeBaser/brightgreen-red.png
   :target: https://drone.io/github.com/mscook/GenomeBaser
      :alt: Build status (Drone.io)
+
+|
 
 A tool to manage complete (bacterial) genomes from the NCBI.
 
