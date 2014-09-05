@@ -16,3 +16,5 @@ build/
 dist/
 ## Don't store the coverage stuff in the REPO
 tests/.coverage
+## Ignore example
+db/
