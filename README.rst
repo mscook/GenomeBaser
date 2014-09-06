@@ -3,20 +3,16 @@ GenomeBaser
 
 .. image:: https://landscape.io/github/mscook/GenomeBaser/master/landscape.png
    :target: https://landscape.io/github/mscook/GenomeBaser/master
-      :alt: Code Health
 
 .. image:: http://gitshields.com/v2/drone/github.com/mscook/GenomeBaser/brightgreen-red.png
   :target: https://drone.io/github.com/mscook/GenomeBaser
-     :alt: Build status (Drone.io)
 
 .. image:: https://readthedocs.org/projects/genomebaser/badge/?version=latest
     :target: https://readthedocs.org/projects/genomebaser/?badge=latest
-       :alt: Documentation Status
 
 .. image:: https://gemnasium.com/mscook/GenomeBaser.svg
     :target: https://gemnasium.com/mscook/GenomeBaser
-        alt: Dependency status 
-    
+
 |
 
 A tool to manage complete (bacterial) genomes from the NCBI.
@@ -31,8 +27,8 @@ GenomeBaser:
     1) Encourages best practice (uses rsync -> only update what's needed)
     2) Despises filenames that aren't easily understandable (symlinks to 
        RefSeq based filename to Genus_species_strain.gbk)
-    3) Give you what you will probably want in the future (provides both .gbk 
-       and .fna. Generate PROKKA databases)
+    3) Gives you what you will (probably) want in the future (provides both .gbk 
+       and .fna. Generates PROKKA databases)
     4) Understands import`ant differences (partitions complete chromosome and 
        complete plasmid into separate buckets)
 
