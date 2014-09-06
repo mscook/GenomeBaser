@@ -12,6 +12,11 @@ GenomeBaser
 .. image:: https://readthedocs.org/projects/genomebaser/badge/?version=latest
     :target: https://readthedocs.org/projects/genomebaser/?badge=latest
        :alt: Documentation Status
+
+.. image:: https://gemnasium.com/mscook/GenomeBaser.svg
+    :target: https://gemnasium.com/mscook/GenomeBaser
+        alt: Dependency status 
+    
 |
 
 A tool to manage complete (bacterial) genomes from the NCBI.
