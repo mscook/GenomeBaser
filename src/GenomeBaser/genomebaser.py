@@ -95,14 +95,14 @@ def genbank_to_fasta(db_loc):
         os.rename(tmp_file, inf)
         for seq_record in SeqIO.parse(inf, "genbank"):
             out_fa = re.sub(r'\W+', ' ', seq_record.description
-                            ).replace(' ', '_')
-            if out_fa.endswith('_'):
-                out_fa = out_fa[:-1]+".fna"
+                            ).replace(' ', '-')
+            if out_fa.endswith('-'):
+                out_fa = out_fa[:-1]+".fa"
             else:
-                out_fa = out_fa+".fna"
+                out_fa = out_fa+".fa"
             SeqIO.write(seq_record, out_fa, "fasta")
             fasta_files.append(out_fa)
-            dest = out_fa.replace(".fna", ".gbk")
+            dest = out_fa.replace(".fa", ".gbk")
             if not os.path.lexists(dest):
                 os.symlink(inf, dest)
     if os.path.exists(tmp_file):
@@ -130,11 +130,11 @@ def partition_genomes(db_loc, fasta_files):
     working_dir = os.getcwd()
     os.chdir(db_loc)
     for e in fasta_files:
-        if e.find("complete_sequence") != -1:
+        if e.find("complete-sequence") != -1:
             plasmid.append(e)
-        elif e.find("complete_genome") != -1:
+        elif e.find("complete-genome") != -1:
             genome.append(e)
-        elif e.find("_genome") != -1:
+        elif e.find("-genome") != -1:
             genome.append(e)
         else:
             print "Could not classify %s" % (e)
@@ -176,7 +176,7 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
         os.mkdir("prokka")
     prokka_cmd = ("prokka-genbank_to_fasta_db %s --idtag=locus_tag "
                   "> prokka/%s.faa") % (' '.join(genbank_files), target)
-    os.system(prokka_cmd.replace(".fna", ".gbk"))
+    os.system(prokka_cmd.replace(".fa", ".gbk"))
     os.chdir("prokka")
     cd_hit_cmd = ("cd-hit -i %s.faa -o %s -T 0 "
                   "-M 0 -g 1 -s 0.8 -c 0.9") % (target, target)
