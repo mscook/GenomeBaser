@@ -24,13 +24,13 @@ Why?
 ----
 
 GenomeBaser:
-    1) Encourages best practice (uses rsync -> only update what's needed)
-    2) Despises filenames that aren't easily understandable (symlinks to 
-       RefSeq based filename to Genus_species_strain.gbk)
+    1) Encourages best practice (uses rsync -> only update what's needed),
+    2) Despises filenames that aren't easy to understand (symlinks from 
+       RefSeq based filename to Genus_species_strain.gbk),
     3) Gives you what you will (probably) want in the future (provides both .gbk 
-       and .fna. Generates PROKKA databases)
-    4) Understands import`ant differences (partitions complete chromosome and 
-       complete plasmid into separate buckets)
+       and .fna. Generates PROKKA databases), and
+    4) Understands important differences (partitions complete chromosome and 
+       complete plasmid into separate directories).
 
 
 Installation
