@@ -190,6 +190,10 @@ def make_prokka(db_loc, genbank_files, target_genus_species):
 @click.command()
 @click.option('--check_deps/--no-check_deps', default=True,
               help='Check that non-python dependencies exist')
+@click.option('--all/--no-all', default=False,
+              help='Get complete, draft and assemblies')
+@click.option('--mlst/--no-mlst', default=False,
+              help='Run MLST typing')
 @click.argument("genus")
 @click.argument("species")
 @click.argument('out_database_location', type=click.Path(exists=True))
